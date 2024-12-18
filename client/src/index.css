@@ -1,6 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom scrollbar for WebKit browsers */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; /* Thinner width for a modern look */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(240, 240, 240, 0.8); /* Slightly transparent background for the track */
+  border-radius: 10px; /* Rounded corners for the track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(136, 136, 136, 0.9); /* Slightly transparent color for the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for the thumb */
+  transition: background 0.3s; /* Smooth transition for hover effect */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(85, 85, 85, 0.9); /* Darker color of the thumb on hover */
+}
+
+/* Custom scrollbar for Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin; /* Set the scrollbar width */
+  scrollbar-color: rgba(136, 136, 136, 0.9) rgba(240, 240, 240, 0.8); /* Thumb color and track color */
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -27,7 +54,7 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem
+    --radius: 0.5rem;
   }
   .dark {
     --background: 222.2 84% 4.9%;
@@ -53,7 +80,7 @@
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%
+    --chart-5: 340 75% 55%;
   }
 }
 @layer base {
@@ -62,5 +89,8 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  .custom-scrollbar {
+    @apply h-64 overflow-y-auto p-4;
   }
 }

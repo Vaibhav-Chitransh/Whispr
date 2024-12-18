@@ -14,9 +14,11 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { login } from "@/utils/axiosInstance";
+import { userStore } from "@/store/userStore";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const {setUser} = userStore();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -33,7 +35,8 @@ const LoginPage = () => {
       const res = await login(formData);
       console.log(`login successfull, ${res}`);
       toast.success("Login successful!");
-      navigate("/chat");
+      setUser(res.data);
+      navigate("/");
     } catch (error) {
       console.log(`Error in logging up: ${error}`);
       toast.error(

@@ -1,11 +1,18 @@
-import React from 'react'
+import React from "react";
+import Sidebar from "@/components/layout/Sidebar";
+import Textarea from "@/components/layout/Textarea";
+import { useChatStore } from "@/store/useChatStore";
+import ChatPage from "./ChatPage";
 
 const HomePage = () => {
-  return (
-    <div>
-      HomePage
-    </div>
-  )
-}
+  const {selectedUser} = useChatStore();
 
-export default HomePage
+  return (
+    <div className="flex items-center justify-center mx-6 my-2">
+      <Sidebar />
+      {selectedUser ? <ChatPage /> : <Textarea />}
+    </div>
+  );
+};
+
+export default HomePage;
