@@ -18,7 +18,7 @@ import { userStore } from "@/store/userStore";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const {setUser} = userStore();
+  const {setUser, connectSocket} = userStore();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -36,6 +36,7 @@ const LoginPage = () => {
       console.log(`login successfull, ${res}`);
       toast.success("Login successful!");
       setUser(res.data);
+      connectSocket();
       navigate("/");
     } catch (error) {
       console.log(`Error in logging up: ${error}`);
