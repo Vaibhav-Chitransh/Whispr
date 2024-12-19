@@ -12,8 +12,6 @@ const Navbar = () => {
     setUser(null);
   };
 
-  console.log(user);
-
   return (
     <div className="flex justify-between items-center p-4 bg-white shadow mx-2">
       <Link to={user ? "/" : "/login"}>

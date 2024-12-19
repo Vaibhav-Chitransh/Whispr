@@ -15,6 +15,7 @@ const ChatPage = () => {
   }, [selectedUser]);
 
   const handleSendMessage = async () => {
+    if (newMessage.trim() === "") return;
     console.log(`Sending Message: ${newMessage}`);
     setNewMessage("");
   };
@@ -24,9 +25,9 @@ const ChatPage = () => {
   };
 
   return (
-    <div className="w-3/4 flex flex-col m-2 border border-black static h-max">
+    <div className="w-3/4 border border-black flex flex-col h-screen relative">
       {/* Header */}
-      <div className="flex items-center justify-between p-2 border-b bg-white z-10">
+      <div className="flex items-center justify-between p-2 border-b bg-white z-10 absolute right-1 left-1">
         <div className="flex items-center">
           <Avatar src={selectedUser.profilePic} alt={selectedUser.fullName} />
           <div className="ml-2">
@@ -49,7 +50,7 @@ const ChatPage = () => {
       </div>
 
       {/* Messages Area */}
-      <div className="flex-grow overflow-y-auto p-2 pt-2">
+      <div className="flex-grow overflow-y-auto p-2 pt-2 absolute border border-black top-20 bottom-36 left-1 right-1">
         {messages.map((message) => (
           <div key={message._id} className="mb-2">
             <p>{message.text}</p>
@@ -58,7 +59,7 @@ const ChatPage = () => {
       </div>
 
       {/* Input Area */}
-      <div className="flex p-2 bg-white border-t static bottom-10">
+      <div className="flex p-2 bg-white border-t absolute bottom-20 right-1 left-1">
         <Input
           type="text"
           value={newMessage}
