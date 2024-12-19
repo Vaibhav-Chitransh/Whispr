@@ -6,9 +6,10 @@ import { LogOut, MessageCircleMore, User } from "lucide-react";
 import { Settings } from "lucide-react";
 
 const Navbar = () => {
-  const { user, setUser } = userStore();
+  const { user, setUser, disconnectSocket } = userStore();
 
   const handleLogout = () => {
+    disconnectSocket();
     setUser(null);
   };
 

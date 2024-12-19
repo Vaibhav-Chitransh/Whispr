@@ -6,23 +6,36 @@ import Avatar from "@/components/layout/Avatar";
 import { CircleX, SendHorizonal } from "lucide-react";
 
 const ChatPage = () => {
-  const { selectedUser, messages, getMessages, setSelectedUser } =
-    useChatStore();
+  const {
+    selectedUser,
+    messages,
+    getMessages,
+    setSelectedUser,
+    sendMessage,
+    subscribeToMessages,
+    unsubscribeFromMessages,
+  } = useChatStore();
   const [newMessage, setNewMessage] = useState("");
 
   useEffect(() => {
     if (selectedUser) getMessages(selectedUser._id);
-  }, [selectedUser]);
+    subscribeToMessages();
 
-  const handleSendMessage = async () => {
+    return () => unsubscribeFromMessages();
+  }, [selectedUser, getMessages, subscribeToMessages, unsubscribeFromMessages]);
+
+  const handleSendMessage = () => {
     if (newMessage.trim() === "") return;
     console.log(`Sending Message: ${newMessage}`);
+    sendMessage({ text: newMessage });
     setNewMessage("");
   };
 
   const handleCloseChat = () => {
     setSelectedUser(null);
   };
+
+  console.log(messages);
 
   return (
     <div className="w-3/4 border border-black flex flex-col h-screen relative">
@@ -52,8 +65,35 @@ const ChatPage = () => {
       {/* Messages Area */}
       <div className="flex-grow overflow-y-auto p-2 pt-2 absolute border border-black top-20 bottom-36 left-1 right-1">
         {messages.map((message) => (
-          <div key={message._id} className="mb-2">
-            <p>{message.text}</p>
+          <div
+            key={message._id}
+            className={`flex items-start mb-2 ${
+              message.senderId !== selectedUser._id
+                ? "justify-end"
+                : "justify-start"
+            }`}
+          >
+            {message.senderId !== selectedUser._id && (
+              <Avatar
+                src={selectedUser.profilePic}
+                alt={selectedUser.fullName}
+              />
+            )}
+            <div
+              className={`max-w-xs p-3 rounded-lg shadow-md ${
+                message.senderId === selectedUser._id
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-black"
+              } ${message.senderId === selectedUser._id ? "ml-2" : "mr-2"}`}
+            >
+              <p>{message.text}</p>
+            </div>
+            {message.senderId === selectedUser._id && (
+              <Avatar
+                src={selectedUser.profilePic}
+                alt={selectedUser.fullName}
+              />
+            )}
           </div>
         ))}
       </div>
