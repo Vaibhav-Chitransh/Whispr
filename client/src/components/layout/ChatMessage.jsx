@@ -5,7 +5,7 @@ import SendedMsg from './SendedMsg';
 import ReceivedMsg from './ReceivedMsg';
 
 const ChatMessage = () => {
-    const {messages, selectedUser, getMessages, subscribeToMessages, unsubscribeFromMessages} = useChatStore();
+    const {messages, selectedUser, getMessages, subscribeToMessages, unsubscribeFromMessages, sendMessage} = useChatStore();
     const messageEndRef = useRef(null);
     const { user } = userStore();
 
@@ -14,7 +14,7 @@ const ChatMessage = () => {
         subscribeToMessages();
     
         return () => unsubscribeFromMessages();
-      }, [selectedUser, getMessages, subscribeToMessages, unsubscribeFromMessages]);
+      }, [selectedUser, getMessages, subscribeToMessages, unsubscribeFromMessages, sendMessage]);
     
       useEffect(() => {
         if (messageEndRef.current && messages) {
