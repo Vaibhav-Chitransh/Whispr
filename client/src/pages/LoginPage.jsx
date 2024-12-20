@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { MessageCircleMore, Mail, Lock, EyeOff } from "lucide-react";
+import { MessageCircleMore, Mail, Lock } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -25,8 +25,6 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
-
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,7 +49,7 @@ const LoginPage = () => {
     <div className="flex justify-center items-center h-screen w-screen">
       <Card className="w-[400px]">
         <CardHeader className="flex justify-center items-center">
-          <MessageCircleMore size={36} />
+          <MessageCircleMore size={36} className="animate-bounce" />
           <CardTitle>Welcome Back</CardTitle>
           <CardDescription>Sign in to your account</CardDescription>
         </CardHeader>
@@ -85,14 +83,9 @@ const LoginPage = () => {
                     size={24}
                     className="absolute left-3 top-1/2 transform -translate-y-1/2"
                   />
-                  <EyeOff
-                    size={24}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400"
-                    onClick={() => setShowPassword(!showPassword)}
-                  />
                   <Input
                     id="password"
-                    type={showPassword ? "text" : "password"}
+                    type="password"
                     required={true}
                     placeholder="password"
                     value={formData.password}
