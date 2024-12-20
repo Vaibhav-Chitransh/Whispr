@@ -21,7 +21,6 @@ const LoginPage = () => {
   const {setUser, connectSocket} = userStore();
 
   const [formData, setFormData] = useState({
-    fullName: "",
     email: "",
     password: "",
   });

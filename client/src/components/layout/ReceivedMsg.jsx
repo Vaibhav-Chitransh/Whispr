@@ -6,11 +6,12 @@ import React from "react";
 const ReceivedMsg = ({message}) => {
     const {selectedUser} = useChatStore();
     const { user } = userStore();
+
   return (
-    <div className="flex justify-start items-center w-3/5">
+    <div className="flex justify-start items-end w-3/5 gap-1">
       <div className="chat-image avatar">
         <div className="size-10 rounded-full border">
-          <img
+          <img className="rounded-full"
             src={
               message.senderId === user._id
                 ? user.profilePic || "/avatar.png"

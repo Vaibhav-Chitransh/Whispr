@@ -34,7 +34,8 @@ export const signup = async (req, res) => {
                 _id: newUser._id,
                 fullName: newUser.fullName,
                 email: newUser.email,
-                profilePic: newUser.profilePic
+                profilePic: newUser.profilePic,
+                createdAt: newUser.createdAt,
             })
         } else {
             return res.status(400).json({message: 'Invalid User data'});
@@ -66,7 +67,8 @@ export const login = async (req, res) => {
             _id: user._id,
             fullName: user.fullName,
             email: user.email,
-            profilePic: user.profilePic
+            profilePic: user.profilePic,
+            createdAt: user.createdAt
         })
     } catch (error) {
         console.log(`Error in login controller: ${error.message}`);
@@ -105,7 +107,8 @@ export const updateProfile = async (req, res) => {
 
 export const checkAuth = async (req, res) => {
     try {
-        return res.status(200).json(req.user);
+        const user = await User.findById(req.user._id).select('-password');
+        return res.status(200).json(user);
     } catch (error) {
         console.log(`Error in checkAuth controller: ${error.message}`);
         return res.status(500).json({message: 'Internal Server Error'});

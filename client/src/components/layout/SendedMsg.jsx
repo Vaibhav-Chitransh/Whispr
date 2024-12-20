@@ -7,7 +7,7 @@ const SendedMsg = ({message}) => {
     const {selectedUser} = useChatStore();
     const { user } = userStore();
   return (
-    <div className="flex justify-end items-center w-3/5">
+    <div className="flex justify-end items-end gap-1 w-3/5">
       <div className="bg-gray-300 flex flex-col px-2 items-end border rounded-xl">
         <div className="chat-bubble flex flex-col">
           {message.image && (
@@ -27,7 +27,7 @@ const SendedMsg = ({message}) => {
       </div>
       <div className="chat-image avatar">
         <div className="size-10 rounded-full border">
-          <img
+          <img className="rounded-full"
             src={
               message.senderId === user._id
                 ? user.profilePic || "/avatar.png"

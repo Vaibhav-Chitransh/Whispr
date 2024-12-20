@@ -2,9 +2,11 @@ import React from 'react'
 import Avatar from './Avatar'
 import { useChatStore } from '@/store/useChatStore'
 import { CircleX } from 'lucide-react';
+import { userStore } from '@/store/userStore';
 
 const ChatHeader = () => {
     const {selectedUser, setSelectedUser} = useChatStore();
+    const {onlineUsers} = userStore();
 
     const handleCloseChat = () => {
         setSelectedUser(null);
@@ -18,10 +20,10 @@ const ChatHeader = () => {
             <p className="font-semibold">{selectedUser.fullName}</p>
             <p
               className={
-                selectedUser.isOnline ? "text-green-500" : "text-red-500"
+                onlineUsers.includes(selectedUser._id)? "text-green-500" : "text-red-500"
               }
             >
-              {selectedUser.isOnline ? "Online" : "Offline"}
+              {onlineUsers.includes(selectedUser._id) ? "Online" : "Offline"}
             </p>
           </div>
         </div>
