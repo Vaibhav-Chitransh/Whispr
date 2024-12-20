@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useChatStore } from "@/store/useChatStore";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Avatar from "@/components/layout/Avatar";
 import { CircleX, SendHorizonal } from "lucide-react";
+import { userStore } from "@/store/userStore";
+import { formatMessageTime } from "@/lib/utils";
 
 const ChatPage = () => {
   const {
@@ -15,6 +17,7 @@ const ChatPage = () => {
     subscribeToMessages,
     unsubscribeFromMessages,
   } = useChatStore();
+  const {user} = userStore();
   const [newMessage, setNewMessage] = useState("");
 
   useEffect(() => {
@@ -35,12 +38,20 @@ const ChatPage = () => {
     setSelectedUser(null);
   };
 
+  const messageEndRef = useRef(null);
+
+  useEffect(() => {
+    if (messageEndRef.current && messages) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   console.log(messages);
 
   return (
-    <div className="w-3/4 border border-black flex flex-col h-screen relative">
+      <div className="flex flex-col w-3/4">
       {/* Header */}
-      <div className="flex items-center justify-between p-2 border-b bg-white z-10 absolute right-1 left-1">
+      <div className="flex items-center justify-between p-2 border-b border-t bg-white z-10 absolute right-1 left-1/4">
         <div className="flex items-center">
           <Avatar src={selectedUser.profilePic} alt={selectedUser.fullName} />
           <div className="ml-2">
@@ -63,43 +74,45 @@ const ChatPage = () => {
       </div>
 
       {/* Messages Area */}
-      <div className="flex-grow overflow-y-auto p-2 pt-2 absolute border border-black top-20 bottom-36 left-1 right-1">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 absolute bottom-16 top-32 right-1 left-1/4">
         {messages.map((message) => (
           <div
             key={message._id}
-            className={`flex items-start mb-2 ${
-              message.senderId !== selectedUser._id
-                ? "justify-end"
-                : "justify-start"
-            }`}
+            className={`flex ${message.senderId === user._id ? "justify-end" : "justify-start"}`}
+            ref={messageEndRef}
           >
-            {message.senderId !== selectedUser._id && (
-              <Avatar
-                src={selectedUser.profilePic}
-                alt={selectedUser.fullName}
-              />
-            )}
-            <div
-              className={`max-w-xs p-3 rounded-lg shadow-md ${
-                message.senderId === selectedUser._id
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-200 text-black"
-              } ${message.senderId === selectedUser._id ? "ml-2" : "mr-2"}`}
-            >
-              <p>{message.text}</p>
+            <div className=" chat-image avatar">
+              <div className="size-10 rounded-full border">
+                <img
+                  src={
+                    message.senderId === user._id
+                      ? user.profilePic || "/avatar.png"
+                      : selectedUser.profilePic || "/avatar.png"
+                  }
+                />
+              </div>
             </div>
-            {message.senderId === selectedUser._id && (
-              <Avatar
-                src={selectedUser.profilePic}
-                alt={selectedUser.fullName}
-              />
-            )}
+            <div className="chat-header mb-1">
+              <time className="text-xs opacity-50 ml-1">
+                {formatMessageTime(message.createdAt)}
+              </time>
+            </div>
+            <div className="chat-bubble flex flex-col">
+              {message.image && (
+                <img
+                  src={message.image}
+                  alt="Attachment"
+                  className="sm:max-w-[200px] rounded-md mb-2"
+                />
+              )}
+              {message.text && <p>{message.text}</p>}
+            </div>
           </div>
         ))}
       </div>
 
       {/* Input Area */}
-      <div className="flex p-2 bg-white border-t absolute bottom-20 right-1 left-1">
+      <div className="flex p-2 bg-white border-t absolute bottom-2 right-1 left-1/4">
         <Input
           type="text"
           value={newMessage}

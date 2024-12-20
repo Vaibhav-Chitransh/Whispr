@@ -5,10 +5,10 @@ import { useChatStore } from "@/store/useChatStore";
 import ChatPage from "./ChatPage";
 
 const HomePage = () => {
-  const {selectedUser} = useChatStore();
+  const { selectedUser } = useChatStore();
 
   return (
-    <div className="flex items-center justify-center mx-6 my-2">
+    <div className="flex ">
       <Sidebar />
       {selectedUser ? <ChatPage /> : <Textarea />}
     </div>

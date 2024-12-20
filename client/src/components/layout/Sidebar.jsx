@@ -13,7 +13,7 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <div className="w-1/4 bg-gray-100 p-4 h-screen overflow-y-auto custom-scrollbar">
+    <div className="w-1/4 bg-gray-100 h-screen overflow-y-scroll custom-scrollbar">
       <h2 className="text-lg font-bold mb-4">Users</h2>
       {isUsersLoading ? (
         <SkeletonDemo />
