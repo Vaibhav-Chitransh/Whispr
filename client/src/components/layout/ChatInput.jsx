@@ -5,15 +5,19 @@ import { SendHorizonal } from "lucide-react";
 import { useChatStore } from "@/store/useChatStore";
 
 const ChatInput = () => {
-    const [newMessage, setNewMessage] = useState("");
-    const {sendMessage} = useChatStore();
+  const [newMessage, setNewMessage] = useState("");
+  const { sendMessage } = useChatStore();
 
-    const handleSendMessage = () => {
-        if (newMessage.trim() === "") return;
-        console.log(`Sending Message: ${newMessage}`);
-        sendMessage({ text: newMessage });
-        setNewMessage("");
-      };
+  const handleSendMessage = async () => {
+    if (newMessage.trim() === "") return;
+    console.log(`Sending Message: ${newMessage}`);
+    try {
+      await sendMessage({ text: newMessage.trim() });
+      setNewMessage("");
+    } catch (error) {
+      console.log(`Failed to send message: ${error}`);
+    }
+  };
 
   return (
     <div className="flex p-2 bg-white border-t absolute bottom-2 right-1 left-1/4">
