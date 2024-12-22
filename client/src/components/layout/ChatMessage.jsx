@@ -11,6 +11,7 @@ const ChatMessage = () => {
     getMessages,
     subscribeToMessages,
     unsubscribeFromMessages,
+    sendMessage
   } = useChatStore();
   const messageEndRef = useRef(null);
   const { user } = userStore();
@@ -20,7 +21,7 @@ const ChatMessage = () => {
     subscribeToMessages();
 
     return () => unsubscribeFromMessages();
-  }, [selectedUser._id, getMessages, subscribeToMessages, unsubscribeFromMessages, messages]);
+  }, [selectedUser._id, subscribeToMessages, unsubscribeFromMessages, sendMessage]);
 
   useEffect(() => {
     if (messageEndRef.current && messages) {

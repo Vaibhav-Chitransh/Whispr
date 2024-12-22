@@ -44,25 +44,26 @@ export const useChatStore = create((set, get) => ({
         `/message/send/${selectedUser._id}`,
         messageData
       );
+      console.log(res);
       set({ messages: [...messages, res.data] });
     } catch (error) {
+      console.error(`Error sending message: ${error}`);
       toast.error(error.response.data.message);
     }
   },
 
-  setSelectedUser: (user) => set({ selectedUser: user }),
+  setSelectedUser: (selectedUser) => set({ selectedUser }),
 
   subscribeToMessages: () => {
-    const { selectedUser, messages } = get();
-    if (!selectedUser) return;
-
     const socket = userStore.getState().socket;
 
     socket.on("sendNewMessage", (newMsg) => {
-        const isMessageSentFromSelectedUser = newMsg.senderId === selectedUser._id;
-        if (!isMessageSentFromSelectedUser) return;
+      const { selectedUser } = get(); 
+      if (newMsg.senderId !== selectedUser._id) return;
 
-      set({ messages: [...messages, newMsg] });
+      set((currentState) => ({
+        messages: [...currentState.messages, newMsg],
+      }));
     });
   },
 
