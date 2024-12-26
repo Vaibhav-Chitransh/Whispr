@@ -2,6 +2,8 @@ import { generateToken } from '../lib/utils.js';
 import User from '../models/user.model.js';
 import bcrypt from 'bcryptjs';
 import cloudinary from '../lib/cloudinary.js';
+import { io } from '../lib/socket.js';
+import { profile } from 'console';
 
 export const signup = async (req, res) => {
     const {fullName, email, password} = req.body;
@@ -36,6 +38,8 @@ export const signup = async (req, res) => {
                 email: newUser.email,
                 profilePic: newUser.profilePic,
                 createdAt: newUser.createdAt,
+                updatedAt: newUser.updatedAt,
+                bio: newUser.bio
             })
         } else {
             return res.status(400).json({message: 'Invalid User data'});
@@ -68,7 +72,9 @@ export const login = async (req, res) => {
             fullName: user.fullName,
             email: user.email,
             profilePic: user.profilePic,
-            createdAt: user.createdAt
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt,
+            bio: user.bio
         })
     } catch (error) {
         console.log(`Error in login controller: ${error.message}`);
@@ -88,16 +94,20 @@ export const logout = (req, res) => {
 
 export const updateProfile = async (req, res) => {
     try {
-        const {profilePic} = req.body;
+        const {profilePic, bio} = req.body;
         const userId = req.user._id;
 
-        if(!profilePic) {
-            return res.status(400).json({message: 'Profile Pic required'});
+        const updates = {};
+
+        if(profilePic) {
+            const uploadResponse = await cloudinary.uploader.upload(profilePic);
+            updates.profilePic = uploadResponse.secure_url;
         }
 
-        const uploadResponse = await cloudinary.uploader.upload(profilePic);
-        const updatedUser = await User.findByIdAndUpdate(userId, {profilePic:uploadResponse.secure_url}, {new: true});
+        if(bio) updates.bio = bio;
+        const updatedUser  = await User.findByIdAndUpdate(userId, updates, { new: true });
 
+        io.emit('profileUpdated', updatedUser);
         return res.status(200).json(updatedUser);
     } catch (error) {
         console.log(`Error in updating profile: ${error.message}`);

@@ -25,9 +25,16 @@ export const userStore = create((set, get) => ({
     socket.on("getOnlineUsers", (userIds) => {
       set({ onlineUsers: userIds });
     });
+
+    socket.on('profileUpdated', (updatedUser) => {
+      if(updatedUser._id === get().user._id) set({user: updatedUser});
+    })
   },
   disconnectSocket: () => {
-    if (get().socket?.connected) get().socket.disconnect();
+    if (get().socket?.connected) {
+      get().socket.disconnect();
+      set({socket: null});
+    }
   },
 
   updateProfile: async (data) => {
@@ -36,6 +43,7 @@ export const userStore = create((set, get) => ({
       const res = await axiosInstance.put("/auth/update-profile", data);
       set({user: res.data});
       toast.success("Profile updated successfully");
+      get().socket.emit('profileUpdated', res.data);
     } catch (error) {
       console.log("error in update profile:", error);
       const errorMessage = error.response ? error.response.data.message : "An unexpected error occurred.";
@@ -43,5 +51,5 @@ export const userStore = create((set, get) => ({
     } finally {
       set({isUpdatingProfile: false});
     }
-  },
+  }
 }));

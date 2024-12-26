@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { type } from 'os';
 
 const userSchema = new mongoose.Schema(
     {
@@ -20,6 +21,10 @@ const userSchema = new mongoose.Schema(
             type: String,
             default: ''
         },
+        bio: {
+            type: String,
+            default: 'Available'
+        }
     },
     {timestamps: true}
 );

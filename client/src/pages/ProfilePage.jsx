@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Loader, Pencil } from "lucide-react";
 import { userStore } from "@/store/userStore";
+import { UpdateBio } from "@/components/layout/UpdateBio";
 
 const ProfilePage = () => {
   const {user, updateProfile, isUpdatingProfile} = userStore();
@@ -26,6 +27,15 @@ const ProfilePage = () => {
       await updateProfile({profilePic: base64Image});
     }
   };
+
+  // const handleBioChange = async () => {
+  //   const dataToUpdate = {
+  //     profilePic: newProfilePic,
+  //     bio: bio,
+  //   };
+
+  //   await updateProfile(dataToUpdate);
+  // };
 
   return (
     <div className="flex justify-center items-center h-screen">
@@ -59,14 +69,23 @@ const ProfilePage = () => {
             <h2 className="mt-4 text-2xl font-semibold">{user.fullName}</h2>
           </CardTitle>
           <CardDescription className="text-center">
-            {user.email}
+            <div className="flex flex-col gap-4">
+              <span>{user.email}</span>
+              <div className="flex justify-between items-center gap-4">
+                <p className="font-semibold text-black text-md border border-black px-2 py-1 rounded w-80">{user.bio}</p>
+                <UpdateBio />
+              </div>
+            </div>
           </CardDescription>
         </CardHeader>
         <div>
           <CardHeader className='text-xl font-bold'>Account Information</CardHeader>
           <CardContent>
             <p className="text-gray-500 border-b mb-3 flex justify-between">
-              <span className="font-bold">Member Since</span> <span>{new Date(user.createdAt).toLocaleDateString()}</span>
+              <span className="font-bold">Member Since</span> <span>{new Date(user.createdAt).toLocaleTimeString()}</span> <span>{new Date(user.createdAt).toLocaleDateString()}</span>
+            </p>
+            <p className="text-gray-500 border-b mb-3 flex justify-between">
+              <span className="font-bold">Last Updated</span> <span>{new Date(user.updatedAt).toLocaleTimeString()}</span><span>{new Date(user.updatedAt).toLocaleDateString()}</span>
             </p>
             <p className='flex justify-between'>
               <span className="font-bold text-gray-500">Account Status:</span> <span className="font-bold text-green-500">Active</span>
