@@ -26,7 +26,7 @@ const Sidebar = () => {
               className="user-item flex items-center p-2 cursor-pointer hover:bg-gray-200"
               onClick={() => setSelectedUser(user)}
             >
-              <Avatar src={user.profilePic} alt={user.fullName} />
+              <Avatar src={user.profilePic} alt={'profilePic'} />
               <div className="ml-2">
                 <p className="font-semibold">{user.fullName}</p>
                 <p

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { io } from "socket.io-client";
-import axiosInstance from "@/utils/axiosInstance";
+import axiosInstance from "../utils/axiosInstance";
 import toast from "react-hot-toast";
 
 export const userStore = create((set, get) => ({
@@ -38,7 +38,8 @@ export const userStore = create((set, get) => ({
       toast.success("Profile updated successfully");
     } catch (error) {
       console.log("error in update profile:", error);
-      toast.error(error.response.data.message);
+      const errorMessage = error.response ? error.response.data.message : "An unexpected error occurred.";
+      toast.error(errorMessage);
     } finally {
       set({isUpdatingProfile: false});
     }

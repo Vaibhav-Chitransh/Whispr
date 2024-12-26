@@ -2,6 +2,7 @@ import { formatMessageTime } from "@/lib/utils";
 import { useChatStore } from "@/store/useChatStore";
 import { userStore } from "@/store/userStore";
 import React from "react";
+import Avatar from "./Avatar";
 
 const SendedMsg = ({message}) => {
     const {selectedUser} = useChatStore();
@@ -11,11 +12,7 @@ const SendedMsg = ({message}) => {
       <div className="bg-gray-300 flex flex-col px-2 items-end border rounded-xl">
         <div className="chat-bubble flex flex-col">
           {message.image && (
-            <img
-              src={message.image}
-              alt="Attachment"
-              className="sm:max-w-[200px] rounded-md mb-2"
-            />
+            <Avatar src={message.image} alt={'profilePic'} />
           )}
           {message.text && <p>{message.text}</p>}
         </div>
@@ -27,13 +24,7 @@ const SendedMsg = ({message}) => {
       </div>
       <div className="chat-image avatar">
         <div className="size-10 rounded-full border">
-          <img className="rounded-full"
-            src={
-              message.senderId === user._id
-                ? user.profilePic || "/avatar.png"
-                : selectedUser.profilePic || "/avatar.png"
-            }
-          />
+          <Avatar src={message.senderId === user._id ? user.profilePic : selectedUser.profilePic} alt={'profilePic'} />
         </div>
       </div>
     </div>

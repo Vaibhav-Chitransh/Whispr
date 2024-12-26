@@ -10,4 +10,4 @@ const Avatar = ({src, alt}) => {
   )
 }
 
-export default Avatar
+export default Avatar;
