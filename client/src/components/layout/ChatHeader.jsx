@@ -20,7 +20,7 @@ const ChatHeader = () => {
             <p className="font-semibold">{selectedUser.fullName}</p>
             <p
               className={
-                onlineUsers.includes(selectedUser._id)? "text-green-500" : "text-red-500"
+                onlineUsers.includes(selectedUser._id)? "text-green-500" : "text-gray-500"
               }
             >
               {onlineUsers.includes(selectedUser._id) ? "Online" : "Offline"}

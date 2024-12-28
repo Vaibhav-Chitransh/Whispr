@@ -28,15 +28,6 @@ const ProfilePage = () => {
     }
   };
 
-  // const handleBioChange = async () => {
-  //   const dataToUpdate = {
-  //     profilePic: newProfilePic,
-  //     bio: bio,
-  //   };
-
-  //   await updateProfile(dataToUpdate);
-  // };
-
   return (
     <div className="flex justify-center items-center h-screen">
       <Card className="w-[500px]">
@@ -47,7 +38,7 @@ const ProfilePage = () => {
                 <div className="background-gray-100 animate-spin"> <Loader /></div> : 
                 <>
                 <img
-                src={newProfilePic || user.profilePic || "/avatar.png"}
+                src={newProfilePic || user.profilePic || "/default_image.avif"}
                 alt={user.fullName}
                 className="h-32 w-32 rounded-full"
               />

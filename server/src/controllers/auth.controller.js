@@ -74,7 +74,8 @@ export const login = async (req, res) => {
             profilePic: user.profilePic,
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,
-            bio: user.bio
+            bio: user.bio,
+            lastSeen: user.lastSeen
         })
     } catch (error) {
         console.log(`Error in login controller: ${error.message}`);
