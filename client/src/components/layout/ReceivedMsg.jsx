@@ -15,7 +15,7 @@ const ReceivedMsg = ({message}) => {
           <Avatar src={message.senderId === user._id ? user.profilePic : selectedUser.profilePic} alt={'profilePic'} />
         </div>
       </div>
-      <div className="flex flex-col items-start border rounded-xl bg-gray-300 px-2">
+      <div className="flex flex-col items-start border rounded-3xl rounded-bl-none bg-gray-200 px-3">
         <div className="chat-bubble flex flex-col">
           {message.image && (
             <Avatar src={message.image} alt={'profilePic'} />

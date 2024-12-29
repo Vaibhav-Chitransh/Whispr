@@ -9,7 +9,7 @@ const SendedMsg = ({message}) => {
     const { user } = userStore();
   return (
     <div className="flex justify-end items-end gap-1 w-3/5">
-      <div className="bg-gray-300 flex flex-col px-2 items-end border rounded-xl">
+      <div className="bg-gray-200 flex flex-col px-3 items-end border rounded-3xl rounded-br-none">
         <div className="chat-bubble flex flex-col">
           {message.image && (
             <Avatar src={message.image} alt={'profilePic'} />

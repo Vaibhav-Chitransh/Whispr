@@ -1,20 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Avatar from './Avatar'
 import { useChatStore } from '@/store/useChatStore'
 import { CircleX } from 'lucide-react';
 import { userStore } from '@/store/userStore';
+import { ShowProfile } from './ShowProfile';
 
 const ChatHeader = () => {
     const {selectedUser, setSelectedUser} = useChatStore();
     const {onlineUsers} = userStore();
+    const [isProfileVisible, setIsProfileVisible] = useState(false);
 
     const handleCloseChat = () => {
         setSelectedUser(null);
     };
 
+    const handleProfileClick = () => {
+      setIsProfileVisible(!isProfileVisible);
+    }
+
   return (
     <div className="flex items-center justify-between p-2 border-b border-t bg-white z-10 absolute right-1 left-1/4">
-        <div className="flex items-center">
+        <div className="flex items-center cursor-pointer" onClick={handleProfileClick}>
           <Avatar src={selectedUser.profilePic} alt={selectedUser.fullName} />
           <div className="ml-2">
             <p className="font-semibold">{selectedUser.fullName}</p>
@@ -33,6 +39,7 @@ const ChatHeader = () => {
         >
           <CircleX />
         </button>
+        <ShowProfile open={isProfileVisible} onOpenChange={setIsProfileVisible} user={selectedUser} />
       </div>
   )
 }
