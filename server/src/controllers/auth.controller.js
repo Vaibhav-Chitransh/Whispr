@@ -3,7 +3,6 @@ import User from '../models/user.model.js';
 import bcrypt from 'bcryptjs';
 import cloudinary from '../lib/cloudinary.js';
 import { io } from '../lib/socket.js';
-import { profile } from 'console';
 
 export const signup = async (req, res) => {
     const {fullName, email, password} = req.body;

@@ -25,4 +25,8 @@ export const updateProfile = async (data) => {
     return await api.put('/auth/update-profile', data);
 }
 
+export const createGroup = async (data) => {
+    return await api.post('/groups', data);
+}
+
 export default api;

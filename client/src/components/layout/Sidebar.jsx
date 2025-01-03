@@ -3,9 +3,10 @@ import Avatar from "./Avatar";
 import React, { useEffect, useState } from "react";
 import { userStore } from "@/store/userStore";
 import { SkeletonDemo } from "../ui/skeleton";
-import { OnlineFilter } from "./OnlineFilter";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import { CircleX } from 'lucide-react';
+import { MakeGroup } from "./MakeGroup";
+import { OnlineCheckbox } from "./OnlineCheckbox";
 
 const Sidebar = () => {
   const { users, getUsers, setSelectedUser, isUsersLoading } = useChatStore();
@@ -24,19 +25,18 @@ const Sidebar = () => {
   return (
     <div className="w-1/4 bg-gray-100 h-screen overflow-y-scroll custom-scrollbar">
       <div className="flex justify-between items-center mb-2">
-        <div className="flex gap-1">
+        <div className="flex gap-1 items-center relative">
           <Input
             type="text"
-            placeholder="search user"
+            placeholder="search . . ."
             value={inputVal}
             onChange={(e) => setInputVal(e.target.value)}
           />
-          <Button onClick={() => setInputVal('')}>
-            Clear
-          </Button>
+          <CircleX className="cursor-pointer absolute right-1 text-gray-500" size={20} onClick={() => setInputVal('')} />
         </div>
-        <OnlineFilter showOnline={showOnline} setShowOnline={setShowOnline} />
+        <MakeGroup />
       </div>
+      <OnlineCheckbox showOnline={showOnline} setShowOnline={setShowOnline} />
       {isUsersLoading ? (
         <SkeletonDemo />
       ) : (
