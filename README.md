@@ -3,6 +3,7 @@
 Whispr Chat is a modern, feature-rich real-time chat application built using the MERN stack. Designed for seamless communication, it currently supports one-to-one chats, with exciting features like group chats, customizable themes, and video calling in development.
 
 **Home Page**
+
 ![Home Page](./images/home_image.png)
 
 ## Key Features
@@ -11,10 +12,12 @@ Whispr Chat is a modern, feature-rich real-time chat application built using the
 - **Secure Sign-Up and Login**: Users can create accounts and log in securely using email and password authentication.
 
 **Signup Page**
-- ![Signup Page](./images/signup_image.png)
+
+![Signup Page](./images/signup_image.png)
 
 - **Login Page**
-- ![Login Page](./images/login_image.png)
+
+![Login Page](./images/login_image.png)
 
 ### 2. **User Profile Management**
 - **Profile Page**: Each user has a dedicated profile page displaying their username, email, and profile picture, last updated, member since.
@@ -22,23 +25,27 @@ Whispr Chat is a modern, feature-rich real-time chat application built using the
 - **Profile Picture Upload**: Upload and change profile pictures to personalize accounts.
 
 - **Profile Page**
-- ![Profile Page](./images/profile_image.png)
+
+![Profile Page](./images/profile_image.png)
 
 ### 3. **Real-Time One-to-One Chat**
 - **Instant Messaging**: Real-time text messaging between users.
 - **Online Status Indicators**: Visual cues to show if a user is online or offline.
 - **Message Timestamps**: Each message displays the time it was sent.
 
-- **Signup Page**
-- ![Chat Page](./images/chat_image.png)
+- **Chat Page**
+
+![Chat Page](./images/chat_image.png)
 
 ### 4. **User Search and Filtering**
 - **Search by Username**: Quickly find other users by searching for their username.
 - **Online/Offline Filtering**: Filter user lists to display only online or offline users, enhancing the chat experience.
 
 - **Filter Users**
-- ![Name](./images/searchFilter_image.png)
-- ![Online](./images/onlineFilter_image.png)
+
+![Name](./images/searchFillter_image.png)
+
+![Online](./images/onlineFilter_image.png)
 
 ---
 
