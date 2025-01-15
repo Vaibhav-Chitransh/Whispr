@@ -3,7 +3,7 @@
 Whispr Chat is a modern, feature-rich real-time chat application built using the MERN stack. Designed for seamless communication, it currently supports one-to-one chats, with exciting features like group chats, customizable themes, and video calling in development.
 
 **Home Page**
-- ![Home Page](./images/home_image.png)
+![Home Page](./images/home_image.png)
 
 ## Key Features
 
